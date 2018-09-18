@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/home/nobroker/android example/MVVMDemo/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/nav_header_main.xml",
+        "source": "/home/nobroker/android example/MVVMDemo/app/src/main/res/layout/nav_header_main.xml"
+    },
+    {
+        "merged": "/home/nobroker/android example/MVVMDemo/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/dialog_rate_us.xml",
+        "source": "/home/nobroker/android example/MVVMDemo/app/src/main/res/layout/dialog_rate_us.xml"
+    },
+    {
+        "merged": "/home/nobroker/android example/MVVMDemo/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_splash.xml",
+        "source": "/home/nobroker/android example/MVVMDemo/app/src/main/res/layout/activity_splash.xml"
+    },
+    {
+        "merged": "/home/nobroker/android example/MVVMDemo/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_main.xml",
+        "source": "/home/nobroker/android example/MVVMDemo/app/src/main/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/home/nobroker/android example/MVVMDemo/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/fragment_about.xml",
+        "source": "/home/nobroker/android example/MVVMDemo/app/src/main/res/layout/fragment_about.xml"
+    },
+    {
+        "merged": "/home/nobroker/android example/MVVMDemo/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_login.xml",
+        "source": "/home/nobroker/android example/MVVMDemo/app/src/main/res/layout/activity_login.xml"
+    }
+]
