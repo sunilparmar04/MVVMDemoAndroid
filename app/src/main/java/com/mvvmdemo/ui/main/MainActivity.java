@@ -42,7 +42,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     @Inject
     ViewModelProvider.Factory mViewModelFactory;
     private ActivityMainBinding mActivityMainBinding;
-   // private SwipePlaceHolderView mCardsContainerView;
     private DrawerLayout mDrawer;
     private MainViewModel mMainViewModel;
     private NavigationView mNavigationView;
@@ -215,7 +214,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                             RateUsDialog.newInstance().show(getSupportFragmentManager());
                             return true;
                         case R.id.navItemFeed:
- //                           startActivity(FeedActivity.newIntent(MainActivity.this));
                             return true;
                         case R.id.navItemLogout:
                             mMainViewModel.logout();
