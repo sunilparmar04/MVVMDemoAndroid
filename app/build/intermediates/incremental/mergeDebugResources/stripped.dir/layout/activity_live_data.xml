@@ -42,7 +42,7 @@
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:background="@color/transparent"
                     android:tag="binding_1"                              
-                    android:tint="@color/black"
+                    android:tint="@color/white"
                     app:srcCompat="@drawable/ic_keyboard_backspace_24px" />
 
                 <TextView

@@ -24,6 +24,8 @@ public class MvvmApp extends Application implements HasActivityInjector {
         return activityDispatchingAndroidInjector;
     }
 
+    public static MvvmApp mInstant;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -40,5 +42,15 @@ public class MvvmApp extends Application implements HasActivityInjector {
             AndroidNetworking.enableLogging(HttpLoggingInterceptor.Level.BODY);
         }
 
+        mInstant=this;
+
+    }
+
+    public static synchronized MvvmApp getInstant(){
+
+       /* if(mInstant==null){
+            mInstant=MvvmApp();
+        }*/
+        return mInstant;
     }
 }

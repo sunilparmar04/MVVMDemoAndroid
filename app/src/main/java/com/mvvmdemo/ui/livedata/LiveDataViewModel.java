@@ -41,7 +41,7 @@ public class LiveDataViewModel extends BaseViewModel<LiveDataNavigator> {
         List<LiveDataResponse> liveDataResponses=new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             LiveDataResponse response = new LiveDataResponse();
-            response.setName("SUnil " + i);
+            response.setName("Sunil " + i);
             liveDataResponses.add(response);
 
         }

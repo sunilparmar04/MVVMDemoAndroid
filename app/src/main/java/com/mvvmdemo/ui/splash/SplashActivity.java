@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
 
 
 import com.mvvmdemo.R;
@@ -48,11 +49,11 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent= LoginActivity.newIntent(SplashActivity.this);
+                Intent intent = LoginActivity.newIntent(SplashActivity.this);
                 startActivity(intent);
                 finish();
             }
-        },2000);
+        }, 2000);
 
     }
 
@@ -61,7 +62,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
 
         Log.v("home_activity", "openMainActivity");
 
-        Intent intent= MainActivity.newIntent(this);
+        Intent intent = MainActivity.newIntent(this);
         startActivity(intent);
         finish();
     }
@@ -72,5 +73,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
         Log.v("home_activity", "onCreate");
         mSplashViewModel.setNavigator(this);
         mSplashViewModel.decideNextActivity();
+
     }
 }

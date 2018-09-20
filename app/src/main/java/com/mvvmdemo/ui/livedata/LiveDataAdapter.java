@@ -1,20 +1,27 @@
 package com.mvvmdemo.ui.livedata;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.mvvmdemo.MvvmApp;
 import com.mvvmdemo.data.model.api.LiveDataResponse;
 import com.mvvmdemo.databinding.ItemLiveDataBinding;
 import com.mvvmdemo.ui.base.BaseViewHolder;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class LiveDataAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private List<LiveDataResponse> liveDataResponseList;
 
+    @Inject
+    Context mContext;
 
     public LiveDataAdapter(List<LiveDataResponse> liveDataResponseList) {
         this.liveDataResponseList = liveDataResponseList;
@@ -45,7 +52,9 @@ public class LiveDataAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         public void onItemClick(String name) {
-            Log.v("click_item","name:"+name);
+            Log.v("click_item", "name:" + name);
+
+            Toast.makeText(MvvmApp.getInstant(), "name:" + name, Toast.LENGTH_SHORT).show();
 
         }
     }
