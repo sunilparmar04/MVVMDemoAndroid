@@ -1,6 +1,9 @@
 package com.mvvmdemo.di.builder;
 
 import com.mvvmdemo.ui.about.AboutFragmentProvider;
+import com.mvvmdemo.ui.feed.FeedActivity;
+import com.mvvmdemo.ui.feed.FeedActivityModule;
+import com.mvvmdemo.ui.feed.blogs.BlogFragmentProvider;
 import com.mvvmdemo.ui.login.LoginActivity;
 import com.mvvmdemo.ui.login.LoginActivityModule;
 import com.mvvmdemo.ui.main.MainActivity;
@@ -15,6 +18,11 @@ import dagger.android.ContributesAndroidInjector;
 
 @Module
 public abstract class ActivityBuilder {
+
+    @ContributesAndroidInjector(modules = {
+            FeedActivityModule.class,
+            BlogFragmentProvider.class})
+    abstract FeedActivity bindFeedActivity();
 
 
     @ContributesAndroidInjector(modules = {

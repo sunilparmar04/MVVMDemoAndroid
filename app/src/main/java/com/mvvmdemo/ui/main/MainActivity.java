@@ -26,6 +26,7 @@ import com.mvvmdemo.databinding.ActivityMainBinding;
 import com.mvvmdemo.databinding.NavHeaderMainBinding;
 import com.mvvmdemo.ui.about.AboutFragment;
 import com.mvvmdemo.ui.base.BaseActivity;
+import com.mvvmdemo.ui.feed.FeedActivity;
 import com.mvvmdemo.ui.login.LoginActivity;
 import com.mvvmdemo.ui.main.rating.RateUsDialog;
 import com.mvvmdemo.utils.AppConstants;
@@ -214,6 +215,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                             RateUsDialog.newInstance().show(getSupportFragmentManager());
                             return true;
                         case R.id.navItemFeed:
+                            startActivity(FeedActivity.newIntent(MainActivity.this));
                             return true;
                         case R.id.navItemLogout:
                             mMainViewModel.logout();

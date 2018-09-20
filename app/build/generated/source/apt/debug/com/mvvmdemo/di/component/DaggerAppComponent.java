@@ -6,6 +6,7 @@ import android.app.Application;
 import android.arch.lifecycle.ViewModelProvider;
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import com.google.gson.Gson;
 import com.mvvmdemo.MvvmApp;
 import com.mvvmdemo.MvvmApp_MembersInjector;
@@ -24,6 +25,7 @@ import com.mvvmdemo.data.remote.ApiHeader_PublicApiHeader_Factory;
 import com.mvvmdemo.data.remote.ApiHelper;
 import com.mvvmdemo.data.remote.AppApiHelper;
 import com.mvvmdemo.data.remote.AppApiHelper_Factory;
+import com.mvvmdemo.di.builder.ActivityBuilder_BindFeedActivity;
 import com.mvvmdemo.di.builder.ActivityBuilder_BindLoginActivity;
 import com.mvvmdemo.di.builder.ActivityBuilder_BindMainActivity;
 import com.mvvmdemo.di.builder.ActivityBuilder_BindSplashActivity;
@@ -46,6 +48,22 @@ import com.mvvmdemo.ui.about.AboutFragmentModule_ProvideAboutViewModelFactory;
 import com.mvvmdemo.ui.about.AboutFragmentProvider_ProvideAboutFragmentFactory;
 import com.mvvmdemo.ui.about.AboutFragment_MembersInjector;
 import com.mvvmdemo.ui.about.AboutViewModel;
+import com.mvvmdemo.ui.feed.FeedActivity;
+import com.mvvmdemo.ui.feed.FeedActivityModule;
+import com.mvvmdemo.ui.feed.FeedActivityModule_ProvideFeedPagerAdapterFactory;
+import com.mvvmdemo.ui.feed.FeedActivityModule_ProvideFeedViewModelFactory;
+import com.mvvmdemo.ui.feed.FeedActivity_MembersInjector;
+import com.mvvmdemo.ui.feed.FeedPagerAdapter;
+import com.mvvmdemo.ui.feed.FeedViewModel;
+import com.mvvmdemo.ui.feed.blogs.BlogFragment;
+import com.mvvmdemo.ui.feed.blogs.BlogFragmentModule;
+import com.mvvmdemo.ui.feed.blogs.BlogFragmentModule_BlogViewModelFactory;
+import com.mvvmdemo.ui.feed.blogs.BlogFragmentModule_ProvideBlogAdapterFactory;
+import com.mvvmdemo.ui.feed.blogs.BlogFragmentModule_ProvideBlogViewModelFactory;
+import com.mvvmdemo.ui.feed.blogs.BlogFragmentModule_ProvideLinearLayoutManagerFactory;
+import com.mvvmdemo.ui.feed.blogs.BlogFragmentProvider_ProvideBlogFragmentFactory;
+import com.mvvmdemo.ui.feed.blogs.BlogFragment_MembersInjector;
+import com.mvvmdemo.ui.feed.blogs.BlogViewModel;
 import com.mvvmdemo.ui.login.LoginActivity;
 import com.mvvmdemo.ui.login.LoginActivityModule;
 import com.mvvmdemo.ui.login.LoginActivityModule_ProvideLoginViewModelFactory;
@@ -75,11 +93,15 @@ import dagger.internal.DoubleCheck;
 import dagger.internal.InstanceFactory;
 import dagger.internal.MapBuilder;
 import dagger.internal.Preconditions;
+import java.util.Collections;
 import java.util.Map;
 import javax.inject.Provider;
 
 public final class DaggerAppComponent implements AppComponent {
   private AppModule appModule;
+
+  private Provider<ActivityBuilder_BindFeedActivity.FeedActivitySubcomponent.Builder>
+      feedActivitySubcomponentBuilderProvider;
 
   private Provider<ActivityBuilder_BindMainActivity.MainActivitySubcomponent.Builder>
       mainActivitySubcomponentBuilderProvider;
@@ -138,7 +160,8 @@ public final class DaggerAppComponent implements AppComponent {
       getMapOfClassOfAndProviderOfFactoryOf() {
     return MapBuilder
         .<Class<? extends Activity>, Provider<AndroidInjector.Factory<? extends Activity>>>
-            newMapBuilder(3)
+            newMapBuilder(4)
+        .put(FeedActivity.class, (Provider) feedActivitySubcomponentBuilderProvider)
         .put(MainActivity.class, (Provider) mainActivitySubcomponentBuilderProvider)
         .put(SplashActivity.class, (Provider) splashActivitySubcomponentBuilderProvider)
         .put(LoginActivity.class, (Provider) loginActivitySubcomponentBuilderProvider)
@@ -152,6 +175,13 @@ public final class DaggerAppComponent implements AppComponent {
 
   @SuppressWarnings("unchecked")
   private void initialize(final Builder builder) {
+    this.feedActivitySubcomponentBuilderProvider =
+        new Provider<ActivityBuilder_BindFeedActivity.FeedActivitySubcomponent.Builder>() {
+          @Override
+          public ActivityBuilder_BindFeedActivity.FeedActivitySubcomponent.Builder get() {
+            return new FeedActivitySubcomponentBuilder();
+          }
+        };
     this.mainActivitySubcomponentBuilderProvider =
         new Provider<ActivityBuilder_BindMainActivity.MainActivitySubcomponent.Builder>() {
           @Override
@@ -257,6 +287,170 @@ public final class DaggerAppComponent implements AppComponent {
     public Builder application(Application application) {
       this.application = Preconditions.checkNotNull(application);
       return this;
+    }
+  }
+
+  private final class FeedActivitySubcomponentBuilder
+      extends ActivityBuilder_BindFeedActivity.FeedActivitySubcomponent.Builder {
+    private FeedActivityModule feedActivityModule;
+
+    private FeedActivity seedInstance;
+
+    @Override
+    public ActivityBuilder_BindFeedActivity.FeedActivitySubcomponent build() {
+      if (feedActivityModule == null) {
+        this.feedActivityModule = new FeedActivityModule();
+      }
+      if (seedInstance == null) {
+        throw new IllegalStateException(FeedActivity.class.getCanonicalName() + " must be set");
+      }
+      return new FeedActivitySubcomponentImpl(this);
+    }
+
+    @Override
+    public void seedInstance(FeedActivity arg0) {
+      this.seedInstance = Preconditions.checkNotNull(arg0);
+    }
+  }
+
+  private final class FeedActivitySubcomponentImpl
+      implements ActivityBuilder_BindFeedActivity.FeedActivitySubcomponent {
+    private FeedActivityModule feedActivityModule;
+
+    private FeedActivity seedInstance;
+
+    private Provider<
+            BlogFragmentProvider_ProvideBlogFragmentFactory.BlogFragmentSubcomponent.Builder>
+        blogFragmentSubcomponentBuilderProvider;
+
+    private FeedActivitySubcomponentImpl(FeedActivitySubcomponentBuilder builder) {
+      initialize(builder);
+    }
+
+    private Map<Class<? extends Fragment>, Provider<AndroidInjector.Factory<? extends Fragment>>>
+        getMapOfClassOfAndProviderOfFactoryOf() {
+      return Collections
+          .<Class<? extends Fragment>, Provider<AndroidInjector.Factory<? extends Fragment>>>
+              singletonMap(BlogFragment.class, (Provider) blogFragmentSubcomponentBuilderProvider);
+    }
+
+    private DispatchingAndroidInjector<Fragment> getDispatchingAndroidInjectorOfFragment() {
+      return DispatchingAndroidInjector_Factory.newDispatchingAndroidInjector(
+          getMapOfClassOfAndProviderOfFactoryOf());
+    }
+
+    private FeedViewModel getFeedViewModel() {
+      return FeedActivityModule_ProvideFeedViewModelFactory.proxyProvideFeedViewModel(
+          feedActivityModule,
+          DaggerAppComponent.this.provideDataManagerProvider.get(),
+          AppModule_ProvideSchedulerProviderFactory.proxyProvideSchedulerProvider(
+              DaggerAppComponent.this.appModule));
+    }
+
+    private FeedPagerAdapter getFeedPagerAdapter() {
+      return FeedActivityModule_ProvideFeedPagerAdapterFactory.proxyProvideFeedPagerAdapter(
+          feedActivityModule, seedInstance);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void initialize(final FeedActivitySubcomponentBuilder builder) {
+      this.blogFragmentSubcomponentBuilderProvider =
+          new Provider<
+              BlogFragmentProvider_ProvideBlogFragmentFactory.BlogFragmentSubcomponent.Builder>() {
+            @Override
+            public BlogFragmentProvider_ProvideBlogFragmentFactory.BlogFragmentSubcomponent.Builder
+                get() {
+              return new BlogFragmentSubcomponentBuilder();
+            }
+          };
+      this.feedActivityModule = builder.feedActivityModule;
+      this.seedInstance = builder.seedInstance;
+    }
+
+    @Override
+    public void inject(FeedActivity arg0) {
+      injectFeedActivity(arg0);
+    }
+
+    private FeedActivity injectFeedActivity(FeedActivity instance) {
+      FeedActivity_MembersInjector.injectFragmentDispatchingAndroidInjector(
+          instance, getDispatchingAndroidInjectorOfFragment());
+      FeedActivity_MembersInjector.injectMFeedViewModel(instance, getFeedViewModel());
+      FeedActivity_MembersInjector.injectMPagerAdapter(instance, getFeedPagerAdapter());
+      return instance;
+    }
+
+    private final class BlogFragmentSubcomponentBuilder
+        extends BlogFragmentProvider_ProvideBlogFragmentFactory.BlogFragmentSubcomponent.Builder {
+      private BlogFragmentModule blogFragmentModule;
+
+      private BlogFragment seedInstance;
+
+      @Override
+      public BlogFragmentProvider_ProvideBlogFragmentFactory.BlogFragmentSubcomponent build() {
+        if (blogFragmentModule == null) {
+          this.blogFragmentModule = new BlogFragmentModule();
+        }
+        if (seedInstance == null) {
+          throw new IllegalStateException(BlogFragment.class.getCanonicalName() + " must be set");
+        }
+        return new BlogFragmentSubcomponentImpl(this);
+      }
+
+      @Override
+      public void seedInstance(BlogFragment arg0) {
+        this.seedInstance = Preconditions.checkNotNull(arg0);
+      }
+    }
+
+    private final class BlogFragmentSubcomponentImpl
+        implements BlogFragmentProvider_ProvideBlogFragmentFactory.BlogFragmentSubcomponent {
+      private BlogFragmentModule blogFragmentModule;
+
+      private BlogFragment seedInstance;
+
+      private BlogFragmentSubcomponentImpl(BlogFragmentSubcomponentBuilder builder) {
+        initialize(builder);
+      }
+
+      private LinearLayoutManager getLinearLayoutManager() {
+        return BlogFragmentModule_ProvideLinearLayoutManagerFactory.proxyProvideLinearLayoutManager(
+            blogFragmentModule, seedInstance);
+      }
+
+      private BlogViewModel getBlogViewModel() {
+        return BlogFragmentModule_BlogViewModelFactory.proxyBlogViewModel(
+            blogFragmentModule,
+            DaggerAppComponent.this.provideDataManagerProvider.get(),
+            AppModule_ProvideSchedulerProviderFactory.proxyProvideSchedulerProvider(
+                DaggerAppComponent.this.appModule));
+      }
+
+      private ViewModelProvider.Factory getFactory() {
+        return BlogFragmentModule_ProvideBlogViewModelFactory.proxyProvideBlogViewModel(
+            blogFragmentModule, getBlogViewModel());
+      }
+
+      @SuppressWarnings("unchecked")
+      private void initialize(final BlogFragmentSubcomponentBuilder builder) {
+        this.blogFragmentModule = builder.blogFragmentModule;
+        this.seedInstance = builder.seedInstance;
+      }
+
+      @Override
+      public void inject(BlogFragment arg0) {
+        injectBlogFragment(arg0);
+      }
+
+      private BlogFragment injectBlogFragment(BlogFragment instance) {
+        BlogFragment_MembersInjector.injectMBlogAdapter(
+            instance,
+            BlogFragmentModule_ProvideBlogAdapterFactory.proxyProvideBlogAdapter(
+                blogFragmentModule));
+        BlogFragment_MembersInjector.injectMLayoutManager(instance, getLinearLayoutManager());
+        BlogFragment_MembersInjector.injectMViewModelFactory(instance, getFactory());
+        return instance;
+      }
     }
   }
 
