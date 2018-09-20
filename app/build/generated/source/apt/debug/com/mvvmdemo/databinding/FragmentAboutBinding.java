@@ -24,7 +24,7 @@ public class FragmentAboutBinding extends android.databinding.ViewDataBinding im
     @Nullable
     private com.mvvmdemo.ui.about.AboutViewModel mViewModel;
     @Nullable
-    private final android.view.View.OnClickListener mCallback5;
+    private final android.view.View.OnClickListener mCallback6;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -38,7 +38,7 @@ public class FragmentAboutBinding extends android.databinding.ViewDataBinding im
         this.navBackBtn.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback5 = new android.databinding.generated.callback.OnClickListener(this, 1);
+        mCallback6 = new android.databinding.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -104,7 +104,7 @@ public class FragmentAboutBinding extends android.databinding.ViewDataBinding im
         if ((dirtyFlags & 0x2L) != 0) {
             // api target 1
 
-            this.navBackBtn.setOnClickListener(mCallback5);
+            this.navBackBtn.setOnClickListener(mCallback6);
         }
     }
     // Listener Stub Implementations

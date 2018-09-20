@@ -7,6 +7,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.mvvmdemo.data.model.api.BlogResponse;
+import com.mvvmdemo.data.model.api.LiveDataResponse;
+import com.mvvmdemo.ui.livedata.LiveDataAdapter;
 import com.mvvmdemo.ui.feed.blogs.BlogAdapter;
 
 import java.util.List;
@@ -35,7 +37,7 @@ public final class BindingUtils {
     }
 
 
-/*
+
     @BindingAdapter({"adapter"})
     public static void addLiveDataItems(RecyclerView recyclerView, List<LiveDataResponse> blogs) {
         LiveDataAdapter adapter = (LiveDataAdapter) recyclerView.getAdapter();
@@ -45,7 +47,7 @@ public final class BindingUtils {
         }
     }
 
-*/
+
 
 
 }

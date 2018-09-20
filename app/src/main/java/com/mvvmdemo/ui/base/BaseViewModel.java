@@ -1,10 +1,8 @@
 package com.mvvmdemo.ui.base;
 
 import android.arch.lifecycle.ViewModel;
-
 import android.databinding.ObservableBoolean;
 import android.util.Log;
-
 
 import com.mvvmdemo.data.DataManager;
 import com.mvvmdemo.utils.rx.SchedulerProvider;
@@ -26,11 +24,13 @@ public abstract class BaseViewModel<N> extends ViewModel {
 
     private WeakReference<N> mNavigator;
 
+
     public BaseViewModel(DataManager dataManager,
                          SchedulerProvider schedulerProvider) {
         this.mDataManager = dataManager;
         this.mSchedulerProvider = schedulerProvider;
         this.mCompositeDisposable = new CompositeDisposable();
+
     }
 
 
@@ -43,7 +43,6 @@ public abstract class BaseViewModel<N> extends ViewModel {
     public DataManager getDataManager() {
         return mDataManager;
     }
-
 
 
     public CompositeDisposable getCompositeDisposable() {
@@ -66,8 +65,9 @@ public abstract class BaseViewModel<N> extends ViewModel {
     public void setNavigator(N navigator) {
         this.mNavigator = new WeakReference<>(navigator);
 
-        Log.v("home_activity","setNavigator");
+        Log.v("home_activity", "setNavigator");
     }
+
 
     public SchedulerProvider getSchedulerProvider() {
         return mSchedulerProvider;

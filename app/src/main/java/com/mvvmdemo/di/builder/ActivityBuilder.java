@@ -1,5 +1,7 @@
 package com.mvvmdemo.di.builder;
 
+import com.mvvmdemo.ui.livedata.LiveDataActivity;
+import com.mvvmdemo.ui.livedata.LiveDataActivityModule;
 import com.mvvmdemo.ui.about.AboutFragmentProvider;
 import com.mvvmdemo.ui.feed.FeedActivity;
 import com.mvvmdemo.ui.feed.FeedActivityModule;
@@ -37,4 +39,7 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = LoginActivityModule.class)
     abstract LoginActivity bindLoginActivity();
+
+    @ContributesAndroidInjector(modules = LiveDataActivityModule.class)
+    abstract LiveDataActivity bindLiveDataActivity();
 }

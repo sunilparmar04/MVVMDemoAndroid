@@ -18,6 +18,13 @@
             android:checked="true"
             android:icon="@drawable/ic_rss_symbol"
             android:title="@string/feed" />
+
+
+        <item
+            android:id="@+id/navItemLiveData"
+            android:checked="true"
+            android:icon="@mipmap/ic_xbox_black_24dp"
+            android:title="@string/livedata" />
         <item
             android:id="@+id/navItemAbout"
             android:checked="true"

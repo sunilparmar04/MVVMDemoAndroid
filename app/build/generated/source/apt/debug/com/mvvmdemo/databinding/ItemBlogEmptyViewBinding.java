@@ -30,7 +30,7 @@ public class ItemBlogEmptyViewBinding extends android.databinding.ViewDataBindin
     @Nullable
     private com.mvvmdemo.ui.feed.blogs.BlogEmptyItemViewModel mViewModel;
     @Nullable
-    private final android.view.View.OnClickListener mCallback4;
+    private final android.view.View.OnClickListener mCallback5;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -46,7 +46,7 @@ public class ItemBlogEmptyViewBinding extends android.databinding.ViewDataBindin
         this.tvMessage = (android.widget.TextView) bindings[3];
         setRootTag(root);
         // listeners
-        mCallback4 = new android.databinding.generated.callback.OnClickListener(this, 1);
+        mCallback5 = new android.databinding.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -112,7 +112,7 @@ public class ItemBlogEmptyViewBinding extends android.databinding.ViewDataBindin
         if ((dirtyFlags & 0x2L) != 0) {
             // api target 1
 
-            this.btnRetry.setOnClickListener(mCallback4);
+            this.btnRetry.setOnClickListener(mCallback5);
         }
     }
     // Listener Stub Implementations

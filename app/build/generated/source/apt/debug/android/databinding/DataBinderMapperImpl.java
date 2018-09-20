@@ -16,6 +16,15 @@ class DataBinderMapperImpl extends android.databinding.DataBinderMapper {
                     }
                         throw new java.lang.IllegalArgumentException("The tag for activity_login is invalid. Received: " + tag);
                 }
+                case com.mvvmdemo.R.layout.activity_live_data:
+ {
+                        final Object tag = view.getTag();
+                        if(tag == null) throw new java.lang.RuntimeException("view must have a tag");
+                    if ("layout/activity_live_data_0".equals(tag)) {
+                            return new com.mvvmdemo.databinding.ActivityLiveDataBinding(bindingComponent, view);
+                    }
+                        throw new java.lang.IllegalArgumentException("The tag for activity_live_data is invalid. Received: " + tag);
+                }
                 case com.mvvmdemo.R.layout.activity_main:
  {
                         final Object tag = view.getTag();
@@ -60,6 +69,15 @@ class DataBinderMapperImpl extends android.databinding.DataBinderMapper {
                             return new com.mvvmdemo.databinding.FragmentAboutBinding(bindingComponent, view);
                     }
                         throw new java.lang.IllegalArgumentException("The tag for fragment_about is invalid. Received: " + tag);
+                }
+                case com.mvvmdemo.R.layout.item_live_data:
+ {
+                        final Object tag = view.getTag();
+                        if(tag == null) throw new java.lang.RuntimeException("view must have a tag");
+                    if ("layout/item_live_data_0".equals(tag)) {
+                            return new com.mvvmdemo.databinding.ItemLiveDataBinding(bindingComponent, view);
+                    }
+                        throw new java.lang.IllegalArgumentException("The tag for item_live_data is invalid. Received: " + tag);
                 }
                 case com.mvvmdemo.R.layout.dialog_rate_us:
  {
@@ -119,6 +137,12 @@ class DataBinderMapperImpl extends android.databinding.DataBinderMapper {
                 }
                 break;
             }
+            case -1365955549: {
+                if(tag.equals("layout/activity_live_data_0")) {
+                    return com.mvvmdemo.R.layout.activity_live_data;
+                }
+                break;
+            }
             case 423753077: {
                 if(tag.equals("layout/activity_main_0")) {
                     return com.mvvmdemo.R.layout.activity_main;
@@ -146,6 +170,12 @@ class DataBinderMapperImpl extends android.databinding.DataBinderMapper {
             case 1771501908: {
                 if(tag.equals("layout/fragment_about_0")) {
                     return com.mvvmdemo.R.layout.fragment_about;
+                }
+                break;
+            }
+            case -229738329: {
+                if(tag.equals("layout/item_live_data_0")) {
+                    return com.mvvmdemo.R.layout.item_live_data;
                 }
                 break;
             }

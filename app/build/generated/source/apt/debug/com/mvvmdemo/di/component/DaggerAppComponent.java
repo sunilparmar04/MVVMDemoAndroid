@@ -26,6 +26,7 @@ import com.mvvmdemo.data.remote.ApiHelper;
 import com.mvvmdemo.data.remote.AppApiHelper;
 import com.mvvmdemo.data.remote.AppApiHelper_Factory;
 import com.mvvmdemo.di.builder.ActivityBuilder_BindFeedActivity;
+import com.mvvmdemo.di.builder.ActivityBuilder_BindLiveDataActivity;
 import com.mvvmdemo.di.builder.ActivityBuilder_BindLoginActivity;
 import com.mvvmdemo.di.builder.ActivityBuilder_BindMainActivity;
 import com.mvvmdemo.di.builder.ActivityBuilder_BindSplashActivity;
@@ -64,6 +65,13 @@ import com.mvvmdemo.ui.feed.blogs.BlogFragmentModule_ProvideLinearLayoutManagerF
 import com.mvvmdemo.ui.feed.blogs.BlogFragmentProvider_ProvideBlogFragmentFactory;
 import com.mvvmdemo.ui.feed.blogs.BlogFragment_MembersInjector;
 import com.mvvmdemo.ui.feed.blogs.BlogViewModel;
+import com.mvvmdemo.ui.livedata.LiveDataActivity;
+import com.mvvmdemo.ui.livedata.LiveDataActivityModule;
+import com.mvvmdemo.ui.livedata.LiveDataActivityModule_ProvideLinearLayoutManagerFactory;
+import com.mvvmdemo.ui.livedata.LiveDataActivityModule_ProvideLiveDataAdapterFactory;
+import com.mvvmdemo.ui.livedata.LiveDataActivityModule_ProvideLiveDataViewModelFactory;
+import com.mvvmdemo.ui.livedata.LiveDataActivity_MembersInjector;
+import com.mvvmdemo.ui.livedata.LiveDataViewModel;
 import com.mvvmdemo.ui.login.LoginActivity;
 import com.mvvmdemo.ui.login.LoginActivityModule;
 import com.mvvmdemo.ui.login.LoginActivityModule_ProvideLoginViewModelFactory;
@@ -111,6 +119,9 @@ public final class DaggerAppComponent implements AppComponent {
 
   private Provider<ActivityBuilder_BindLoginActivity.LoginActivitySubcomponent.Builder>
       loginActivitySubcomponentBuilderProvider;
+
+  private Provider<ActivityBuilder_BindLiveDataActivity.LiveDataActivitySubcomponent.Builder>
+      liveDataActivitySubcomponentBuilderProvider;
 
   private Provider<Application> applicationProvider;
 
@@ -160,11 +171,12 @@ public final class DaggerAppComponent implements AppComponent {
       getMapOfClassOfAndProviderOfFactoryOf() {
     return MapBuilder
         .<Class<? extends Activity>, Provider<AndroidInjector.Factory<? extends Activity>>>
-            newMapBuilder(4)
+            newMapBuilder(5)
         .put(FeedActivity.class, (Provider) feedActivitySubcomponentBuilderProvider)
         .put(MainActivity.class, (Provider) mainActivitySubcomponentBuilderProvider)
         .put(SplashActivity.class, (Provider) splashActivitySubcomponentBuilderProvider)
         .put(LoginActivity.class, (Provider) loginActivitySubcomponentBuilderProvider)
+        .put(LiveDataActivity.class, (Provider) liveDataActivitySubcomponentBuilderProvider)
         .build();
   }
 
@@ -201,6 +213,13 @@ public final class DaggerAppComponent implements AppComponent {
           @Override
           public ActivityBuilder_BindLoginActivity.LoginActivitySubcomponent.Builder get() {
             return new LoginActivitySubcomponentBuilder();
+          }
+        };
+    this.liveDataActivitySubcomponentBuilderProvider =
+        new Provider<ActivityBuilder_BindLiveDataActivity.LiveDataActivitySubcomponent.Builder>() {
+          @Override
+          public ActivityBuilder_BindLiveDataActivity.LiveDataActivitySubcomponent.Builder get() {
+            return new LiveDataActivitySubcomponentBuilder();
           }
         };
     this.applicationProvider = InstanceFactory.create(builder.application);
@@ -776,6 +795,74 @@ public final class DaggerAppComponent implements AppComponent {
 
     private LoginActivity injectLoginActivity(LoginActivity instance) {
       LoginActivity_MembersInjector.injectMLoginViewModel(instance, getLoginViewModel());
+      return instance;
+    }
+  }
+
+  private final class LiveDataActivitySubcomponentBuilder
+      extends ActivityBuilder_BindLiveDataActivity.LiveDataActivitySubcomponent.Builder {
+    private LiveDataActivityModule liveDataActivityModule;
+
+    private LiveDataActivity seedInstance;
+
+    @Override
+    public ActivityBuilder_BindLiveDataActivity.LiveDataActivitySubcomponent build() {
+      if (liveDataActivityModule == null) {
+        this.liveDataActivityModule = new LiveDataActivityModule();
+      }
+      if (seedInstance == null) {
+        throw new IllegalStateException(LiveDataActivity.class.getCanonicalName() + " must be set");
+      }
+      return new LiveDataActivitySubcomponentImpl(this);
+    }
+
+    @Override
+    public void seedInstance(LiveDataActivity arg0) {
+      this.seedInstance = Preconditions.checkNotNull(arg0);
+    }
+  }
+
+  private final class LiveDataActivitySubcomponentImpl
+      implements ActivityBuilder_BindLiveDataActivity.LiveDataActivitySubcomponent {
+    private LiveDataActivityModule liveDataActivityModule;
+
+    private LiveDataActivity seedInstance;
+
+    private LiveDataActivitySubcomponentImpl(LiveDataActivitySubcomponentBuilder builder) {
+      initialize(builder);
+    }
+
+    private LiveDataViewModel getLiveDataViewModel() {
+      return LiveDataActivityModule_ProvideLiveDataViewModelFactory.proxyProvideLiveDataViewModel(
+          liveDataActivityModule,
+          DaggerAppComponent.this.provideDataManagerProvider.get(),
+          AppModule_ProvideSchedulerProviderFactory.proxyProvideSchedulerProvider(
+              DaggerAppComponent.this.appModule));
+    }
+
+    private LinearLayoutManager getLinearLayoutManager() {
+      return LiveDataActivityModule_ProvideLinearLayoutManagerFactory
+          .proxyProvideLinearLayoutManager(liveDataActivityModule, seedInstance);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void initialize(final LiveDataActivitySubcomponentBuilder builder) {
+      this.liveDataActivityModule = builder.liveDataActivityModule;
+      this.seedInstance = builder.seedInstance;
+    }
+
+    @Override
+    public void inject(LiveDataActivity arg0) {
+      injectLiveDataActivity(arg0);
+    }
+
+    private LiveDataActivity injectLiveDataActivity(LiveDataActivity instance) {
+      LiveDataActivity_MembersInjector.injectMLiveDataViewModel(instance, getLiveDataViewModel());
+      LiveDataActivity_MembersInjector.injectMLayoutManager(instance, getLinearLayoutManager());
+      LiveDataActivity_MembersInjector.injectMLiveDataAdapter(
+          instance,
+          LiveDataActivityModule_ProvideLiveDataAdapterFactory.proxyProvideLiveDataAdapter(
+              liveDataActivityModule));
       return instance;
     }
   }

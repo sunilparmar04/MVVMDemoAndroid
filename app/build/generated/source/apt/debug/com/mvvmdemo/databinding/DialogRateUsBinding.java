@@ -29,9 +29,9 @@ public class DialogRateUsBinding extends android.databinding.ViewDataBinding imp
     @Nullable
     private com.mvvmdemo.ui.main.rating.RateUsViewModel mViewModel;
     @Nullable
-    private final android.view.View.OnClickListener mCallback7;
+    private final android.view.View.OnClickListener mCallback9;
     @Nullable
-    private final android.view.View.OnClickListener mCallback6;
+    private final android.view.View.OnClickListener mCallback8;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -48,8 +48,8 @@ public class DialogRateUsBinding extends android.databinding.ViewDataBinding imp
         this.ratingBarFeedback = (android.widget.RatingBar) bindings[3];
         setRootTag(root);
         // listeners
-        mCallback7 = new android.databinding.generated.callback.OnClickListener(this, 2);
-        mCallback6 = new android.databinding.generated.callback.OnClickListener(this, 1);
+        mCallback9 = new android.databinding.generated.callback.OnClickListener(this, 2);
+        mCallback8 = new android.databinding.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -115,8 +115,8 @@ public class DialogRateUsBinding extends android.databinding.ViewDataBinding imp
         if ((dirtyFlags & 0x2L) != 0) {
             // api target 1
 
-            this.btnLater.setOnClickListener(mCallback6);
-            this.btnSubmit.setOnClickListener(mCallback7);
+            this.btnLater.setOnClickListener(mCallback8);
+            this.btnSubmit.setOnClickListener(mCallback9);
         }
     }
     // Listener Stub Implementations

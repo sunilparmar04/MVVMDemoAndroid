@@ -24,6 +24,7 @@ import com.mvvmdemo.BR;
 import com.mvvmdemo.R;
 import com.mvvmdemo.databinding.ActivityMainBinding;
 import com.mvvmdemo.databinding.NavHeaderMainBinding;
+import com.mvvmdemo.ui.livedata.LiveDataActivity;
 import com.mvvmdemo.ui.about.AboutFragment;
 import com.mvvmdemo.ui.base.BaseActivity;
 import com.mvvmdemo.ui.feed.FeedActivity;
@@ -216,6 +217,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                             return true;
                         case R.id.navItemFeed:
                             startActivity(FeedActivity.newIntent(MainActivity.this));
+                            return true;
+                        case R.id.navItemLiveData:
+                            Intent gotoLive = new Intent(MainActivity.this, LiveDataActivity.class);
+                            startActivity(gotoLive);
                             return true;
                         case R.id.navItemLogout:
                             mMainViewModel.logout();

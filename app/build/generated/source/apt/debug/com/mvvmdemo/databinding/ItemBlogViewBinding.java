@@ -34,7 +34,7 @@ public class ItemBlogViewBinding extends android.databinding.ViewDataBinding imp
     @Nullable
     private com.mvvmdemo.ui.feed.blogs.BlogItemViewModel mViewModel;
     @Nullable
-    private final android.view.View.OnClickListener mCallback8;
+    private final android.view.View.OnClickListener mCallback10;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -58,7 +58,7 @@ public class ItemBlogViewBinding extends android.databinding.ViewDataBinding imp
         this.titleTextView.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback8 = new android.databinding.generated.callback.OnClickListener(this, 1);
+        mCallback10 = new android.databinding.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -284,7 +284,7 @@ public class ItemBlogViewBinding extends android.databinding.ViewDataBinding imp
         if ((dirtyFlags & 0x40L) != 0) {
             // api target 1
 
-            this.mboundView1.setOnClickListener(mCallback8);
+            this.mboundView1.setOnClickListener(mCallback10);
         }
         if ((dirtyFlags & 0x61L) != 0) {
             // api target 1
