@@ -15,5 +15,6 @@
 *.ipr
 *~
 *.swp
+/*/*/workspace.xml
 
 
