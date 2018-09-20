@@ -1,0 +1,4 @@
+#Thu Sep 20 13:09:33 IST 2018
+base.0=/home/nobroker/android example/MVVMDemo/app/build/intermediates/transforms/dexMerger/debug/7
+path.0=classes.dex
+renamed.0=classes.dex

@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="@dimen/app_bar_height"
-                android:background="@color/light_gray"
+                android:background="@color/colorPrimary"
                 android:gravity="center|start"
                 android:orientation="horizontal">
 
@@ -42,7 +42,7 @@
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:background="@color/transparent"
                     android:onClick="@{() -> viewModel.onNavBackClick()}"
-                    android:tint="@color/black"
+                    android:tint="@color/white"
                     app:srcCompat="@drawable/ic_keyboard_backspace_24px" />
 
                 <TextView
@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:text="@string/livedata"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -59,9 +59,9 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/blogRecyclerView"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 app:adapter="@{viewModel.livedataObservableArrayList}"
-                tools:listitem="@layout/item_live_data"
-                android:layout_height="match_parent" />
+                tools:listitem="@layout/item_live_data" />
 
         </LinearLayout>
 
