@@ -8,6 +8,12 @@
 /captures
 .externalNativeBuild
 /.idea
-/app/build
+/*/*/build
+/*/out
+*.iml
+*.iws
+*.ipr
+*~
+*.swp
 
 
